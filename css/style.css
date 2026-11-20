@@ -1,0 +1,356 @@
+/* ============================================================
+   My Dashboard — styles
+   Single CSS file. Theming via [data-theme] on <html>.
+   ============================================================ */
+
+/* ---------- Theme tokens ---------- */
+:root {
+  --bg: #eef2f7;
+  --bg-gradient: linear-gradient(180deg, #eef2ff 0%, #eef2f7 60%);
+  --card-bg: #ffffff;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-soft: #eef2ff;
+  --border: #e2e8f0;
+  --done: #94a3b8;
+  --danger: #ef4444;
+  --success: #10b981;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 6px 18px rgba(0, 0, 0, 0.04);
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --bg-gradient: linear-gradient(180deg, #1e1b4b 0%, #0f172a 60%);
+  --card-bg: #1e293b;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --primary: #818cf8;
+  --primary-hover: #a5b4fc;
+  --primary-soft: #312e81;
+  --border: #334155;
+  --done: #64748b;
+  --danger: #f87171;
+  --success: #34d399;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+  padding: 24px 20px 48px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ---------- Theme toggle ---------- */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  z-index: 100;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+.theme-toggle:hover { transform: scale(1.1); }
+
+/* ---------- Hero (greeting + clock) ---------- */
+.hero {
+  max-width: 900px;
+  margin: 40px auto 32px;
+  text-align: center;
+  padding: 0 12px;
+}
+.date {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  text-transform: capitalize;
+}
+.greeting {
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 700;
+  margin-top: 8px;
+  letter-spacing: -0.02em;
+}
+.name-row {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+.name-label { white-space: nowrap; }
+.name-input {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 16px;
+  color: var(--text);
+  font: inherit;
+  width: 160px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.name-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+.clock {
+  margin-top: 18px;
+  font-size: clamp(2.2rem, 6vw, 3rem);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  color: var(--primary);
+}
+
+/* ---------- Grid layout ---------- */
+.grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  font: inherit;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
+}
+.btn:hover { background: var(--bg); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.btn-primary:hover { background: var(--primary-hover); }
+
+/* ---------- Focus timer ---------- */
+.timer-display {
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  margin: 8px 0 20px;
+  color: var(--text);
+}
+.timer-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.timer-sessions {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.sessions-count {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+/* ---------- To-do list ---------- */
+.todo-form,
+.link-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.todo-form input,
+.link-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.todo-form input:focus,
+.link-form input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+.link-form input#link-name { flex: 0 0 35%; }
+
+.todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  transition: opacity 0.2s ease;
+}
+.todo-item.done { opacity: 0.6; }
+.todo-item.done .todo-text {
+  text-decoration: line-through;
+  color: var(--done);
+}
+.todo-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.todo-text {
+  flex: 1;
+  word-break: break-word;
+}
+.todo-edit-input {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--primary);
+  background: var(--card-bg);
+  color: var(--text);
+  font: inherit;
+  outline: none;
+}
+.todo-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 4px 6px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: background 0.2s ease;
+}
+.icon-btn:hover { background: var(--primary-soft); }
+.todo-empty {
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+  padding: 16px;
+  list-style: none;
+}
+.todo-message {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  min-height: 1.2em;
+  color: var(--success);
+}
+.todo-message.error { color: var(--danger); }
+
+/* ---------- Quick links ---------- */
+.links-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.link-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--primary-soft);
+  border-radius: 999px;
+  padding: 4px 6px 4px 14px;
+  transition: transform 0.15s ease;
+}
+.link-item:hover { transform: translateY(-2px); }
+.link-btn {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.link-item .icon-btn {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+.link-item .icon-btn:hover { background: rgba(0, 0, 0, 0.1); color: var(--danger); }
+.links-empty {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  text-align: center;
+  margin-top: 48px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  body { padding: 16px 14px 32px; }
+  .hero { margin: 24px auto 20px; }
+  .link-form { flex-wrap: wrap; }
+  .link-form input#link-name { flex: 1 1 100%; }
+}
